@@ -10,6 +10,8 @@ public class Console implements View {
     private Presenter presenter;
     private Menu menu;
     private boolean go;
+    private String surname;
+    private String middlename;
 
     @Override
     public void start() {
@@ -19,7 +21,7 @@ public class Console implements View {
         while (go) {
             header();
             menuUi();
-            System.out.print("Выберите действие ");
+            System.out.print("Выберите действие: ");
             String command = scan.nextLine();
             if (checkInput(command)) {
                 menu.execute(Integer.parseInt(command));
@@ -40,11 +42,15 @@ public class Console implements View {
     public void addHumanNew() {
         System.out.print("Введите имя: ");
         String name = scan();
+        System.out.print("Введите фамилию: ");
+        surname = scan();
+        System.out.print("Введите отчество: ");
+        middlename = scan();
         System.out.print("Введите пол (муж./жен.):  ");
         String sex = scan();
         System.out.print("Введите возраст:  ");
         LocalDate age = LocalDate.ofEpochDay(Integer.parseInt(scan()));
-        presenter.addHumanNew(name, sex, age);
+        presenter.addHumanNew(name, surname, middlename, sex, age);
     }
 
     public void familyPrint() {
@@ -75,7 +81,6 @@ public class Console implements View {
 
     public void end() {
         go = false;
-
     }
 
     @Override
